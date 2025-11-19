@@ -1,0 +1,56 @@
+.guideline-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  column-gap: 0.4rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.guideline-label {
+  font-family: "<SANS-SERIF-FONT>", system-ui, sans-serif;
+  font-size: 1.1rem;
+}
+
+.guideline-label--right {
+  justify-self: end;
+}
+
+/* three handwriting guide lines */
+.guideline-lines {
+  position: relative;
+  height: 1.3rem;
+}
+
+.guideline-lines::before,
+.guideline-lines::after,
+.guideline-lines::marker {
+  content: "";
+}
+
+.guideline-lines::before,
+.guideline-lines::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #000;
+}
+
+/* Baseline */
+.guideline-lines::before {
+  bottom: 0;
+}
+
+/* Midline */
+.guideline-lines::after {
+  bottom: 50%;
+  border-style: dashed;
+}
+
+/* Ascender line */
+.guideline-lines::marker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-bottom: 1px solid #000;
+}
