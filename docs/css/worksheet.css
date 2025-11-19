@@ -396,6 +396,12 @@ button#downloadPdfBtn:hover {
   overflow: hidden;
 }
 
+/* Hide quad images until they have a src so we don't see a broken icon */
+.quad-image:not([src]),
+.quad-image[src=""] {
+  display: none;
+}
+
 /* The uploaded image; we preserve aspect ratio and fill horizontally. */
 .quad-image {
   width: 100%;
