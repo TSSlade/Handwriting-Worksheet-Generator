@@ -1,3 +1,4 @@
+console.log("worksheet.js version 2025-11-19b loaded");
 // ====== DOM REFERENCES ======
 const phraseInput = document.getElementById("userPhrase");
 const filledText = document.getElementById("filledPhraseText");

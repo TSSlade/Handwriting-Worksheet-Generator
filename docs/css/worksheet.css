@@ -228,6 +228,10 @@ button#downloadPdfBtn:hover {
   flex-direction: column;
 }
 
+.worksheet-page.pdf-clean .guideline-band {
+  transform: translateY(0px);  /* try -1px or -2px */
+}
+
 /* ====== NAME / DATE ROW ====== */
 
 .name-date-row {
@@ -290,7 +294,7 @@ button#downloadPdfBtn:hover {
   position: relative;
   width: 100%;
   height: 1.1rem; /* Tightening to make sure ascenders touch topline*/
-  transform: translateY(-2px); /* Nudging downward to make sure text is on the baseline*/
+  transform: translateY(-3px); /* Nudging downward to make sure text is on the baseline*/
 
   /* 1) light gray fill from midline down
      2) dashed gray midline */
