@@ -181,3 +181,71 @@ window.addEventListener("resize", fillAllGuidelines);
 if (document.fonts && document.fonts.ready) {
   document.fonts.ready.then(fillAllGuidelines);
 }
+
+function initPrintDebugOverlay() {
+  const worksheet = document.getElementById('worksheetPage');
+  if (!worksheet) {
+    console.warn('initPrintDebugOverlay: #worksheetPage not found');
+    return;
+  }
+
+  const overlay = document.createElement('div');
+  overlay.id = 'print-debug-overlay';
+  document.body.appendChild(overlay);
+
+  function updateOverlay() {
+    const rect = worksheet.getBoundingClientRect();
+
+    // Assume 96 CSS px per inch as a working approximation
+    const DPI = 96;
+    const widthIn = rect.width / DPI;
+    const heightIn = rect.height / DPI;
+
+    // If you know your html2pdf jsPDF options, you can mirror them here.
+    // Example: Letter page in points (72pt/inch).
+    const PAGE_WIDTH_IN = 8.5;
+    const PAGE_HEIGHT_IN = 11;
+
+    const widthPctOfPage = (widthIn / PAGE_WIDTH_IN) * 100;
+    const heightPctOfPage = (heightIn / PAGE_HEIGHT_IN) * 100;
+
+    overlay.textContent = [
+      'worksheetPage:',
+      `  ${rect.width.toFixed(2)} × ${rect.height.toFixed(2)} px`,
+      `  ≈ ${widthIn.toFixed(2)}" × ${heightIn.toFixed(2)}"`,
+      '',
+      'Letter page (target):',
+      `  8.50" × 11.00"`,
+      '',
+      'Usage:',
+      `  width:  ${widthPctOfPage.toFixed(1)}% of page`,
+      `  height: ${heightPctOfPage.toFixed(1)}% of page`,
+    ].join('\n');
+  }
+
+  // Initial paint + keep it fresh on resize
+  updateOverlay();
+  window.addEventListener('resize', updateOverlay);
+
+  // If you have sliders or inputs that change layout, you can call updateOverlay()
+  // explicitly from those handlers too.
+  // e.g., after re-rendering lines or changing margins:
+  //   updateOverlay();
+}
+
+// Enabling DEBUG MODE in the browser console will add a "debug" class to the body
+function initDebugMode() {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.has('debug')) {
+    document.body.classList.add('debug');
+    initPrintDebugOverlay(); // we'll define this next
+  }
+}
+
+// Make sure this runs after the DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initDebugMode);
+} else {
+  initDebugMode();
+}

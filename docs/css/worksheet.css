@@ -558,3 +558,26 @@ button#downloadPdfBtn:hover {
   border: none !important;
   background: white !important;
 }
+
+/* Hidden by default */
+#print-debug-overlay {
+  display: none;
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  z-index: 9999;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: pre; /* preserve line breaks in textContent */
+  pointer-events: none; /* don't interfere with clicks */
+}
+
+/* Only show overlay when debug mode is active */
+body.debug #print-debug-overlay {
+  display: block;
+}

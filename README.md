@@ -7,7 +7,7 @@ While developing this project, we want to run a lightweight web server.
 
 ```bash
 $ cd ~/projects/for-anna/worksheet-gen
-$ uv run python -m http.server 8000
+$ uv run python -m http.server 8000 --directory docs
 # then visit http://localhost:8000/worksheet.html
 ```
 
@@ -21,6 +21,17 @@ $ base64 -w 0 ../assets/fonts/<FONT-NAME-HERE>.otf | xclip -sel clip
 $ printf '@font-face { font-family: "<FILLED-BOX-FONT>"; src: url("data:font/otf;base64,'%s'") format("opentype"); }\n' "$(base64 -w0 ../assets/fonts/AbcBoxPrint-Regular.otf)" | xclip -sel clip
 
 ```
+
+During development, if you need to enable `DEBUG MODE` while seeing how GitHub Pages is serving the site, enter the following in the Developer Tools console:
+
+```js
+// To turn it on
+document.body.classList.add('debug');
+// To turn it off
+document.body.classList.remove('debug');
+```
+
+Alternatively, you can toggle `DEBUG_MODE` by appending `?debug=1` to the URL.
 
 ## Reference
 
