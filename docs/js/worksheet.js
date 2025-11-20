@@ -115,45 +115,73 @@ function restorePageDecorations() {
   worksheetPage.classList.remove("pdf-clean");
 }
 
+// downloadBtn.addEventListener("click", () => {
+//   hidePageDecorationsForPDF();
+
+//   const element = worksheetPage;
+//   const rect = element.getBoundingClientRect();
+//   const pdfWidth = Math.round(rect.width);
+//   const pdfHeight = Math.round(rect.height);
+
+//   const opt = {
+//     margin: 0,
+//     filename: "worksheet.pdf",
+//     image: { type: "jpeg", quality: 0.98 },
+//     html2canvas: {
+//       scale: 2,
+//       useCORS: true,
+//       scrollX: 0,
+//       scrollY: -window.scrollY
+//     },
+//     jsPDF: {
+//       unit: "px",
+//       format: [pdfWidth, pdfHeight],
+//       orientation: "landscape"
+//     },
+//     pagebreak: { mode: "none" }
+//   };
+
+//   const clone = worksheetPage.cloneNode(true);
+//   clone.style.margin = "0";
+//   clone.style.boxShadow = "none";
+//   clone.style.border = "none";
+//   clone.style.background = "white";
+
+// html2pdf().set(opt).from(clone).save();
+// });
 downloadBtn.addEventListener("click", () => {
   hidePageDecorationsForPDF();
 
   const element = worksheetPage;
-  const rect = element.getBoundingClientRect();
-  const pdfWidth = Math.round(rect.width);
-  const pdfHeight = Math.round(rect.height);
 
   const opt = {
-    margin: 0,
-    filename: "worksheet.pdf",
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: {
-      scale: 2,
+    margin:       0,
+    filename:     "worksheet.pdf",
+    image:        { type: "jpeg", quality: 0.98 },
+    html2canvas:  {
+      scale:   2,
       useCORS: true,
       scrollX: 0,
-      scrollY: -window.scrollY
+      scrollY: -window.scrollY,
     },
     jsPDF: {
-      unit: "px",
-      format: [pdfWidth, pdfHeight],
-      orientation: "landscape"
+      unit:        "in",
+      format:      "letter",
+      orientation: "landscape",
     },
-    pagebreak: { mode: "none" }
+    pagebreak: { mode: "none" },
   };
 
-  const clone = worksheetPage.cloneNode(true);
-  clone.style.margin = "0";
-  clone.style.boxShadow = "none";
-  clone.style.border = "none";
-  clone.style.background = "white";
-
-html2pdf().set(opt).from(clone).save();
-  // html2pdf()
-  //   .set(opt)
-  //   .from(element)
-  //   .save()
-  //   .then(restorePageDecorations);
+  html2pdf()
+    .set(opt)
+    .from(element)
+    .save()
+    .finally(() => {
+      // make sure any decorations get restored
+      showPageDecorationsAfterPDF();
+    });
 });
+
 
 // === AUTO-GENERATE GUIDELINES ===================================
 function fillGuidelinesSpan(span) {

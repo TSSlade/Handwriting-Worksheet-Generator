@@ -212,8 +212,11 @@ button#downloadPdfBtn:hover {
 
 .worksheet-page {
   position: relative;
-  width: 100%;
-  max-width: 900px;
+  /* width: 100%; */
+  /* max-width: 900px; */
+  width: 11in;        /* Landscape Letter width */
+  max-width: 100%;
+  box-sizing: border-box;
   /* 11 x 8.5 ratio for US Letter (landscape) */
   /*aspect-ratio: 11 / 8.5;*/
   background: #ffffff;
