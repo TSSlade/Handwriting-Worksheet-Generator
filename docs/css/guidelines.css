@@ -1,13 +1,13 @@
 .guideline-row {
   display: grid;
-  grid-template-columns: auto 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto minmax(5rem, 0.2fr);
   column-gap: 0.4rem;
   align-items: center;
   margin-bottom: 0.75rem;
 }
 
 .guideline-label {
-  font-family: "<SANS-SERIF-FONT>", system-ui, sans-serif;
+  font-family: "SANS-SERIF-FONT", system-ui, sans-serif;
   font-size: 1.1rem;
 }
 
@@ -19,38 +19,49 @@
 .guideline-lines {
   position: relative;
   height: 1.3rem;
+
+  background-image:
+  linear-gradient(
+    to bottom, transparent 0%, transparent 50%, #f6f6f6 50%, #f6f6f6 100%
+    ),
+  /* Middle dashed gray line via background */
+  repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent 4px,
+    #888 4px,
+    #888 8px
+    );
+
+
+    background-repeat: no-repeat;
+  /* place it vertically centered, 1px thick */
+  background-position: 0 50%;
+  background-size: 100% 1px;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 0, 0 50%;      /* fill starts at top; dashed line centered */
+  background-size: 100% 100%, 100% 1px; /* fill covers full box; dashed line 1px thick */
 }
 
+/* Use ::before and ::after for top and bottom solid lines */
 .guideline-lines::before,
-.guideline-lines::after,
-.guideline-lines::marker {
+.guideline-lines::after {
   content: "";
-}
-
-.guideline-lines::before,
-.guideline-lines::after {
   position: absolute;
   left: 0;
   right: 0;
-  border-bottom: 1px solid #000;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
 
-/* Baseline */
+/* Top line: green, flush with top */
 .guideline-lines::before {
-  bottom: 0;
-}
-
-/* Midline */
-.guideline-lines::after {
-  bottom: 50%;
-  border-style: dashed;
-}
-
-/* Ascender line */
-.guideline-lines::marker {
-  position: absolute;
-  left: 0;
-  right: 0;
   top: 0;
-  border-bottom: 1px solid #000;
+  border-bottom-color: #00aa00; /* green */
+}
+
+/* Bottom line: red, flush with bottom */
+.guideline-lines::after {
+  bottom: 0;
+  border-bottom-color: #cc0000; /* red */
 }
